@@ -13,7 +13,7 @@ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get update && sudo apt-get install terraform
 python3 -m pip install --upgrade --user ansible checkov
-git clone https://github.com/lprat/terraform-libvirt-ubuntu_cloudimage-example
+git clone https://github.com/lprat/terraform-libvirt-linux_cloudimage-example
 cd terraform-libvirt-ubuntu_cloudimage-example/terraform
 #vi terraform.tfvars -> change password for user root and usradm
 terraform init

@@ -1,14 +1,13 @@
-// fetch the latest ubuntu release image from their mirrors
+// fetch the latest debian release image from their mirrors
 resource "libvirt_volume" "base" {
-  name   = "ubuntu-base"
-  //source = "https://cloud-images.ubuntu.com/minimal/daily/impish/20220308/impish-minimal-cloudimg-amd64.img"
-  source = "https://cloud-images.ubuntu.com/minimal/releases/${var.ubuntu_ver}/release/ubuntu-${var.ubuntu_iso}-minimal-cloudimg-amd64.img"
+  name   = "debian-base"
+  source = var.debian_iso_url
   pool   = var.libvirt_pool
   format = "qcow2"
 }
 
-resource "libvirt_volume" "test-os_image" {
-  name            = "test-os_image"
+resource "libvirt_volume" "debian-os_image" {
+  name            = "debian-os_image"
   base_volume_id  = libvirt_volume.base.id
   pool            = var.libvirt_pool
   size            = 10737418240
@@ -23,7 +22,7 @@ resource "libvirt_cloudinit_disk" "commoninit" {
 }
 
 // Create the machine
-resource "libvirt_domain" "domain-ubuntu" {
+resource "libvirt_domain" "domain-debian" {
   # domain name in libvirt, not hostname
   name       = var.hostname
   memory     = var.memoryMB
@@ -36,7 +35,7 @@ resource "libvirt_domain" "domain-ubuntu" {
 
 
   disk {
-    volume_id = libvirt_volume.test-os_image.id
+    volume_id = libvirt_volume.debian-os_image.id
   }
   network_interface {
     network_name = var.libvirt_net
@@ -72,6 +71,7 @@ resource "libvirt_domain" "domain-ubuntu" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u admuser -i ${self.network_interface.0.addresses.0}, --private-key ${var.private_key_path} ansible/provision.yml"
+    #command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u admuser -i ${self.network_interface.0.addresses.0}, --ask-vault-pass --extra-vars '@passwd.yml' --private-key ${var.private_key_path} ansible/provision.yml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u admuser -i ${self.network_interface.0.addresses.0}, --extra-vars 'ansible_become_pass=${var.password_usradm}' --private-key ${var.private_key_path} ansible/provision.yml"
   }
 }

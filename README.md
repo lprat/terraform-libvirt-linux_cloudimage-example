@@ -22,13 +22,13 @@ terraform apply
 ```
 
 ## TODO
-  - change ubuntu to debian
-  - Apply CIS benchmark hardening (https://github.com/hardenedlinux/harbian-audit)
-  - Hardening ssh service (https://github.com/hardenedlinux/harbian-audit)
-  - Install & config
-     - auditd log (https://github.com/Neo23x0/auditd)
-     - rsyslog to centralized logs
-     - supervision
-     - backup restic tool to persistent data
-     - Wazuh agent
+  - [X] change ubuntu to debian
+  - [ ] Apply CIS benchmark hardening (https://github.com/hardenedlinux/harbian-audit)
+  - [ ] Hardening ssh service (https://github.com/hardenedlinux/harbian-audit)
+  - [ ] Install & config
+     - [ ] auditd log (https://github.com/Neo23x0/auditd)
+     - [ ] rsyslog to centralized logs
+     - [ ] supervision
+     - [ ] backup restic tool to persistent data
+     - [ ] Wazuh agent
 

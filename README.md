@@ -1,3 +1,4 @@
+[![security status](https://github.com/bridgecrewio/checkov/workflows/security/badge.svg)](https://github.com/bridgecrewio/checkov/actions?query=event%3Apush+branch%3Amaster+workflow%3Asecurity) 
 # Install and configure ubuntu cloud image with terraform and ansible
 I used the original source code from Mr Stephane ROBERT (https://blog.stephane-robert.info/tags/terraform/) to adapt it to my need.
 
